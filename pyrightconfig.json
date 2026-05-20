@@ -1,4 +1,5 @@
 {
   "venvPath": "/Users/raikonif/.local/share/virtualenvs",
-  "venv": "mercantil-crud-back-fgaEWvTt"
+  "venv": "mercantil-crud-back-fgaEWvTt",
+  "reportMissingTypeStubs": false
 }
