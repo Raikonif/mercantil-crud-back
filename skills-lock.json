@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "django-drf": {
+      "source": "gentleman-programming/gentleman-skills",
+      "sourceType": "github",
+      "skillPath": "curated/django-drf/SKILL.md",
+      "computedHash": "29364409b7891191f540d0f7b448885e803172365a3f520a36c2364fd4303c8b"
+    }
+  }
+}
