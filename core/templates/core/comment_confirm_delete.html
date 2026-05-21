@@ -1,0 +1,18 @@
+{% extends "core/base.html" %}
+
+{% block title %}Delete comment{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <h1>Delete comment</h1>
+    <p>Delete this comment?</p>
+    <p>{{ comment.comment }}</p>
+    <form method="post">
+        {% csrf_token %}
+        <div class="actions">
+            <button class="danger" type="submit">Delete</button>
+            <a class="button secondary" href="{% url 'task-detail' comment.task_id %}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

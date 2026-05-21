@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+
+{% block title %}{% if object %}Edit comment{% else %}New comment{% endif %}{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <h1>{% if object %}Edit comment{% else %}New comment{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <div class="actions">
+            <button type="submit">Save</button>
+            <a class="button secondary" href="{% if object %}{% url 'task-detail' object.task_id %}{% else %}{% url 'task-detail' task.pk %}{% endif %}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "core/base.html" %}
+
+{% block title %}{{ task.title }}{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <div class="toolbar">
+        <h1>{{ task.title }}</h1>
+        <div class="actions">
+            <a class="button secondary" href="{% url 'task-update' task.pk %}">Edit</a>
+            <a class="button danger" href="{% url 'task-delete' task.pk %}">Delete</a>
+        </div>
+    </div>
+    <p>{{ task.description }}</p>
+    <div class="meta">
+        <span class="badge">{{ task.get_status_display }}</span>
+        <span class="badge">{{ task.get_priority_display }}</span>
+        <span>Limit: {{ task.limit_date }}</span>
+        <span>Created: {{ task.created_at }}</span>
+    </div>
+</section>
+
+<section>
+    <h2>Comments</h2>
+    <form class="panel" method="post" action="{% url 'task-detail' task.pk %}">
+        {% csrf_token %}
+        {{ comment_form.non_field_errors }}
+        <div>
+            {{ comment_form.comment.label_tag }}
+            {{ comment_form.comment }}
+            {{ comment_form.comment.errors }}
+        </div>
+        <div class="actions">
+            <button type="submit">Add comment</button>
+        </div>
+    </form>
+
+    {% with comments=task.comments.all %}
+    {% if comments %}
+        <ul class="comment-list">
+            {% for comment in comments %}
+                <li class="panel">
+                    <p>{{ comment.comment }}</p>
+                    <div class="meta">
+                        <span>{{ comment.created_at }}</span>
+                    </div>
+                    <div class="actions">
+                        <a class="button secondary" href="{% url 'comment-update' comment.pk %}">Edit</a>
+                        <a class="button danger" href="{% url 'comment-delete' comment.pk %}">Delete</a>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p class="empty">No comments yet.</p>
+    {% endif %}
+    {% endwith %}
+</section>
+{% endblock %}

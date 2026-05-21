@@ -1,0 +1,36 @@
+{% extends "core/base.html" %}
+
+{% block title %}Tasks{% endblock %}
+
+{% block content %}
+<div class="toolbar">
+    <h1>Tasks</h1>
+    <a class="button" href="{% url 'task-create' %}">New task</a>
+</div>
+
+{% if tasks %}
+    <ul class="task-list">
+        {% for task in tasks %}
+            <li class="panel task-row">
+                <div>
+                    <h2><a href="{% url 'task-detail' task.pk %}">{{ task.title }}</a></h2>
+                    <p>{{ task.description }}</p>
+                    <div class="meta">
+                        <span class="badge">{{ task.get_status_display }}</span>
+                        <span class="badge">{{ task.get_priority_display }}</span>
+                        <span>Limit: {{ task.limit_date }}</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <a class="button secondary" href="{% url 'task-update' task.pk %}">Edit</a>
+                    <a class="button danger" href="{% url 'task-delete' task.pk %}">Delete</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <section class="panel">
+        <p class="empty">No tasks yet.</p>
+    </section>
+{% endif %}
+{% endblock %}

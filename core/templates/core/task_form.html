@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+
+{% block title %}{% if object %}Edit task{% else %}New task{% endif %}{% endblock %}
+
+{% block content %}
+<section class="panel">
+    <h1>{% if object %}Edit task{% else %}New task{% endif %}</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        {% for field in form %}
+            <div>
+                {{ field.label_tag }}
+                {{ field }}
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        <div class="actions">
+            <button type="submit">Save</button>
+            <a class="button secondary" href="{% if object %}{% url 'task-detail' object.pk %}{% else %}{% url 'task-list' %}{% endif %}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}
